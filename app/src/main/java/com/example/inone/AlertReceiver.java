@@ -1,0 +1,117 @@
+package com.example.inone;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+
+import com.example.inone.network.RestAPI;
+import com.example.inone.vo.InOneDataAll;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
+
+public class AlertReceiver extends BroadcastReceiver {
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://api.coinone.co.kr/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    RestAPI restAPI = retrofit.create(RestAPI.class);
+
+    float kspLast = 0.0f;
+    float klayLast = 0.0f;
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        restAPI.getAll().enqueue(new Callback<InOneDataAll>(){
+            @Override
+            public void onResponse(@NonNull Call<InOneDataAll> call, @NonNull Response<InOneDataAll> response){
+                if(response.isSuccessful()){
+                    InOneDataAll inOneDataAll = response.body();
+                    klayLast = Float.parseFloat(inOneDataAll.getKlayInfo().getLast());
+                    kspLast = Float.parseFloat(inOneDataAll.getKspInfo().getLast());
+
+
+                    /*EditText klayEdit = (EditText) findViewById(R.id.klayEdit);
+                    EditText kspEdit = (EditText) findViewById(R.id.kspEdit);*/
+
+                    float myKlayCount = 127;//Float.parseFloat(klayEdit.getText().toString());
+                    float myKspCount = 5;//Float.parseFloat(kspEdit.getText().toString());
+
+                    float myKlayValue = myKlayCount * klayLast;
+                    float myKspValue = myKspCount * kspLast;
+
+                    float ratio = 0.0f;
+                    if(myKlayValue > myKspValue){
+                        ratio = myKlayValue / myKspValue;
+                    } else {
+                        ratio = myKspValue / myKlayValue;
+                    }
+
+                    System.out.println("myKlayValue : " +myKlayValue + ", myKspValue :" + myKspValue);
+                    System.out.println("KlayLast : " + klayLast + ", KspLast : " + kspLast);
+
+                    System.out.println(ratio);
+                    System.out.println(ratio);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
+
+                    builder.setSmallIcon(R.mipmap.ic_launcher);
+
+                    builder.setContentTitle("비영구적손실");
+                    builder.setContentText("1 : " + Float.toString(ratio));
+
+                    //intent = new Intent(context, MainActivity.class);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    builder.setContentIntent(pendingIntent);
+
+                    Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+                    builder.setLargeIcon(largeIcon);
+
+                    builder.setColor(Color.YELLOW);
+
+                    NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        manager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+                    }
+
+                    manager.notify(1, builder.build());
+
+
+
+
+
+
+                }
+            }
+            @Override
+            public void onFailure(Call<InOneDataAll> call, Throwable t){
+                t.printStackTrace();
+            }
+        });
+
+
+
+    }
+
+}
+
