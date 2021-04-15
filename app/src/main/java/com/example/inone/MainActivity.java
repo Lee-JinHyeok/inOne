@@ -21,10 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.inone.network.RestAPI;
+import com.example.inone.prefs.SharedPreferencesManager;
 import com.example.inone.vo.InOneData;
 import com.example.inone.vo.InOneDataAll;
-
-import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -45,16 +44,27 @@ public class MainActivity extends AppCompatActivity {
     float kspLast = 0.0f;
     float klayLast = 0.0f;
 
-    // Alarm 설정
-    /*Intent intent= intent = new Intent(this, MainActivity.class);
-    AlarmManager alarmManager = (AlarmManager)getSystemService (Context.ALARM_SERVICE);
-    PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_NO_CREATE);*/
+    private static void resetAlarm(Context context){
+        AlarmManager resetAlarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent resetIntent = new Intent(context, logic.class);
+        PendingIntent resetSender = PendingIntent.getBroadcast(context, 0, resetIntent, 0);
+
+        /*resetAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
+                AlarmManager.INTERVAL_HOUR, resetSender);*/
+
+        resetAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 10 * 1000,
+                10 * 1000, resetSender);
+
+        System.out.println("되냐!!!!!");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        resetAlarm(this);
 
 
 
@@ -62,17 +72,11 @@ public class MainActivity extends AppCompatActivity {
         valueBtn.setOnClickListener(new View.OnClickListener() {//버튼 이벤트 처리
             @Override
             public void onClick(View view) {
-
-                //1분
-                /*alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        SystemClock.elapsedRealtime() +
-                                60 * 1000, pendingIntent);*/
-                //30분
-                /*alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
-                        AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);*/
-
-                callAllValue();
+                EditText klayEdit = findViewById(R.id.klayEdit);
+                EditText kspEdit = findViewById(R.id.kspEdit);
+                SharedPreferencesManager.setFloat(null, "klay",Float.parseFloat(klayEdit.getText().toString()));
+                SharedPreferencesManager.setFloat(null, "ksp", Float.parseFloat(kspEdit.getText().toString()));
+                //callAllValue();
             }
         });
     }
@@ -97,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAlarm(){
 
-        EditText klayEdit = (EditText) findViewById(R.id.klayEdit);
-        EditText kspEdit = (EditText) findViewById(R.id.kspEdit);
+        EditText klayEdit = findViewById(R.id.klayEdit);
+        EditText kspEdit = findViewById(R.id.kspEdit);
 
         float myKlayCount = Float.parseFloat(klayEdit.getText().toString());
         float myKspCount = Float.parseFloat(kspEdit.getText().toString());
