@@ -48,10 +48,8 @@ public class logic extends BroadcastReceiver {
                     klayLast = Float.parseFloat(inOneDataAll.getKlayInfo().getLast());
                     kspLast = Float.parseFloat(inOneDataAll.getKspInfo().getLast());
 
-
-
-                    float myKlayCount = SharedPreferencesManager.getFloat(null, "klay");//Float.parseFloat(klayEdit.getText().toString());
-                    float myKspCount = SharedPreferencesManager.getFloat(null, "ksp");//Float.parseFloat(kspEdit.getText().toString());
+                    float myKlayCount = SharedPreferencesManager.getFloat(context, "klay"); //Float.parseFloat(klayEdit.getText().toString());
+                    float myKspCount = SharedPreferencesManager.getFloat(context, "ksp"); //Float.parseFloat(kspEdit.getText().toString());
 
                     float myKlayValue = myKlayCount * klayLast;
                     float myKspValue = myKspCount * kspLast;

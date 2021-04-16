@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingStart="30dp"
-    android:paddingEnd="30dp"
-    android:paddingTop="60dp">
+    android:paddingEnd="30dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit1"
@@ -17,14 +16,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintVertical_bias="0.15">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/klayEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
-            android:hint="클 레 이 튼"
+            android:hint="Klay"
+            android:digits="0123456789"
             android:textColor="#000000"
             android:maxLength="10"
             android:textSize="17sp" />
@@ -39,23 +39,163 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit1"
-        app:layout_constraintVertical_bias="0.035">
+        app:layout_constraintVertical_bias="0.02">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/kspEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
-            android:hint="클 레 이 스 왑"
+            android:hint="KSP"
+            android:digits="0123456789"
             android:textColor="#000000"
             android:maxLength="10"
             android:textSize="17sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <android.widget.Button
-        android:text="알  림  시  작"
-        android:id="@+id/callValueBtn"
+    <TextView
+        android:id="@+id/valueTimeTextView"
+        android:textSize="17sp"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit2"
+        app:layout_constraintVertical_bias="0.03"/>
+
+    <TextView
+        android:id="@+id/valueRatioTextView"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueTimeTextView"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:id="@+id/sonTextView"
+        android:text="비영구적손실 : 공식이 뭐야"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueRatioTextView"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <TextView
+        android:id="@+id/sonTextView1"
+        android:text="1 : 1.25 가격 변화 = 0.6% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView2"
+        android:text="1 : 1.50 가격 변화 = 2.0% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView1"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView3"
+        android:text="1 : 1.75 가격 변화 = 3.8% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView2"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView4"
+        android:text="1 : 2 가격 변화 = 5.7% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView3"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView5"
+        android:text="1 : 3 가격 변화 = 13.4% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView4"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView6"
+        android:text="1 : 4 가격 변화 = 20.0% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView5"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/sonTextView7"
+        android:text="1 : 5 가격 변화 = 25.5% 손실"
+        android:layout_width="347dp"
+        android:layout_height="27dp"
+        android:textColorHint="#000000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sonTextView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.widget.Button
+        android:text="정보저장"
+        android:id="@+id/saveValueBtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:letterSpacing="-0.03"
+        android:textColor="#212121"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintWidth_percent="1" />
+
+    <android.widget.Button
+        android:text="초기화"
+        android:id="@+id/valueResetBtn"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:letterSpacing="-0.03"
@@ -65,8 +205,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.95"
         app:layout_constraintWidth_percent="1" />
+
+    <android.widget.Button
+        android:text="갱신"
+        android:id="@+id/callValueBtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:letterSpacing="-0.03"
+        android:textColor="#212121"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintWidth_percent="1" />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

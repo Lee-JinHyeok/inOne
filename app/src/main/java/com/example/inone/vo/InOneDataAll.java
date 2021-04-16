@@ -11,21 +11,22 @@ public class InOneDataAll {
 
     @SerializedName("errorCode")
     private String errorCode;
-    //해당시간
-    @SerializedName("timestamp")
-    private String timestamp;
-
     public String getResult() {
         return result;
     }
 
     public String getErrorCode() {
         return errorCode;
-    }
+    }*/
+
+    //해당시간
+    @SerializedName("timestamp")
+    private String timestamp;
+
 
     public String getTimestamp() {
         return timestamp;
-    }*/
+    }
 
     //코인 하나하나 추가하고 getter해줘야함 귀찮
     //KLAY
